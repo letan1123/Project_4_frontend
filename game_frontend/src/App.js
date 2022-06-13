@@ -66,6 +66,7 @@ function App() {
               <h3>Habitat: {animal.habitat}</h3>
               <h3>Diet: {animal.diet}</h3>
               <img src={animal.image} alt={animal.commonName}></img>
+              <h3>Level: {animal.level}</h3>
               <Edit handleUpdate={handleUpdate} animal={animal}/>
               <button onClick={() => {handleDelete(animal)}}>
               Delete
