@@ -32,8 +32,8 @@ const Edit = (props) => {
                     onChange={handleChange}/>
                     <br/>
                     <br/>
-                    <label htmlFor="suborder">Suborder: </label><br/>
-                    <input type="text" name="suborder" value={animal.suborder}
+                    <label htmlFor="genus">Genus: </label><br/>
+                    <input type="text" name="genus" value={animal.genus}
                     onChange={handleChange}/>
                     <br/>
                     <br/>

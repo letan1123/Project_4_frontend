@@ -1,7 +1,7 @@
 import {useState} from 'react'
 
 const Add = (props) => {
-    let emptyAnimal = {commonName: '',species: '',order: '',suborder: '',habitat: '',diet: '', image: '',level: '',}
+    let emptyAnimal = {commonName: '',species: '',order: '',genus: '',habitat: '',diet: '', image: '',level: '',}
 
     const [animal, setAnimal] = useState(emptyAnimal)
 
@@ -12,7 +12,7 @@ const Add = (props) => {
         event.preventDefault()
         console.log(animal)
         props.handleCreate(animal)
-        setAnimal({commonName: '',species: '',order: '',suborder: '',habitat: '',diet: '', image: '',level: '',})
+        setAnimal({commonName: '',species: '',order: '',genus: '',habitat: '',diet: '', image: '',level: '',})
     }
     return (
         <>
@@ -35,8 +35,8 @@ const Add = (props) => {
                     onChange={handleChange}/>
                     <br/>
                     <br/>
-                    <label htmlFor="suborder">Suborder: </label><br/>
-                    <input type="text" name="suborder" value={animal.suborder}
+                    <label htmlFor="genus">Genus: </label><br/>
+                    <input type="text" name="genus" value={animal.genus}
                     onChange={handleChange}/>
                     <br/>
                     <br/>
