@@ -1,6 +1,7 @@
 import './App.css';
 import {useState, useEffect} from'react'
 import axios from 'axios'
+import Fuse from 'fuse.js'
 import Add from './components/Add'
 import Edit from './components/Edit'
 
@@ -8,10 +9,24 @@ import Edit from './components/Edit'
 
 function App() {
   const [animals, setAnimals] = useState([])
+  const [query, setQuery] = useState('')
+
+  const fuse = new Fuse(animals, {
+      keys: [
+        'commonName',
+        'species',
+        'habitat',
+        'diet'
+      ],
+      includeScore: true
+  })
+
+  const results = fuse.search(query)
+  const animalResults = query ? results.map(result => result.item) : animals
 
   const getAnimals = () => {
     axios
-        .get('http://localhost:8000/api/species')
+        .get('https://rocky-hollows-96922.herokuapp.com/api/species')
         .then(response => setAnimals(response.data),
         (err)=> console.error(err)
         )
@@ -19,7 +34,7 @@ function App() {
   }
   const handleCreate = (addAnimal) => {
     axios
-      .post('http://localhost:8000/api/species', addAnimal)
+      .post('https://rocky-hollows-96922.herokuapp.com/api/species', addAnimal)
       .then((response) => {
         // takes the existing state and spreads it, adds new object to the end
         setAnimals([...animals, response.data])
@@ -28,9 +43,9 @@ function App() {
       })
   }
   const handleUpdate =(editAnimal) => {
-    axios   
+    axios
     // id updates ID in DB, editComic brings the info from that function
-      .put('http://localhost:8000/api/species/' + editAnimal.id, editAnimal)
+      .put('https://rocky-hollows-96922.herokuapp.com/api/species/' + editAnimal.id, editAnimal)
       .then((response) => {
         setAnimals(animals.map((animal) => {
           return animal.id !== response.data.id ? animal : response.data
@@ -40,14 +55,18 @@ function App() {
   }
   const handleDelete = (deletedAnimal) => {
     axios
-      .delete('http://localhost:8000/api/species/' + deletedAnimal.id)
+      .delete('https://rocky-hollows-96922.herokuapp.com/api/species/' + deletedAnimal.id)
       .then((response) => {
         setAnimals(animals.filter(animal => animal.id !== deletedAnimal.id))
         // getAnimals()
     })
   }
 
+  function handleOnSearch({ currentTarget = {} })  {
+    const { value } = currentTarget;
+    setQuery(value)
 
+  }
 
   useEffect(() => {
     getAnimals()
@@ -57,8 +76,8 @@ function App() {
     <>
       <h1 id='title'>Endanged Species</h1>
       <Add handleCreate={handleCreate}/><br/>
-      <div class='container'>
-        {animals.map((animal) => {
+      <div className='container'>
+        {animalResults.map((animal) => {
           return(
             <div class='animal' key={animal.id}>
               <h3>Name: {animal.commonName}</h3>
@@ -70,10 +89,16 @@ function App() {
               <button onClick={() => {handleDelete(animal)}}>
               Delete
               </button>
-            </div> 
+            </div>
           )
         })}
       </div>
+      <aside>
+        <form className='search'>
+          <label>Search</label>
+          <input type='text' value={query} id='query' onChange={handleOnSearch}/>
+        </form>
+      </aside>
     </>
   )
 }
