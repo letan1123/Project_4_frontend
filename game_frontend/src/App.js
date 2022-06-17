@@ -16,8 +16,8 @@ function App() {
 
   const googleURL = `https://www.google.com/maps/embed/v1/search?key=${process.env.REACT_APP_API_KEY}&q=`
 
-  // const APIBaseURL = 'https://rocky-hollows-96922.herokuapp.com/api/species'
-  const APIBaseURL = 'http://localhost:8000/api/species'
+  const APIBaseURL = 'https://rocky-hollows-96922.herokuapp.com/api/species'
+  // const APIBaseURL = 'http://localhost:8000/api/species'
 
 {/* ============================= SEARCH BAR ============================= */}
 
@@ -105,10 +105,10 @@ function App() {
             <div class='singleAnimal' key={animal.id}>
               <h3>Name: {animal.commonName}</h3>
               <h5>Species: {animal.species}</h5>
+              <h5>Description: {animal.description}</h5>
               <h5>Diet: {animal.diet}</h5>
               <h5>Order: {animal.order}</h5>
-              <h5>Sub-Order: {animal.order}</h5>
-              <h5>Diet: {animal.diet}</h5>
+              <h5>Genus: {animal.genus}</h5>
               <img src={animal.image} alt={animal.commonName} id='showImg'></img>
               <h5>Level: {animal.level}</h5>
               <h5>Habitat: {animal.habitat}</h5>

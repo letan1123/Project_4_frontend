@@ -2,7 +2,7 @@ import {useState} from 'react'
 
 const NavBar = (props) => {
 
-    let emptyAnimal = {commonName: '',species: '',order: '',suborder: '',habitat: '',diet: '', image: '',level: '',}
+    let emptyAnimal = {commonName: '',species: '',order: '',genus: '',habitat: '',diet: '', image: '',level: '',description:''}
 
     const [animal, setAnimal] = useState(emptyAnimal)
 
@@ -14,7 +14,7 @@ const NavBar = (props) => {
         event.preventDefault()
         console.log(animal)
         props.handleCreate(animal)
-        setAnimal({commonName: '',species: '',order: '',suborder: '',habitat: '',diet: '', image: '',level: '',})
+        setAnimal({commonName: '',species: '',order: '',genus: '',habitat: '',diet: '', image: '',level: '',description:''})
     }
 
     return(
@@ -108,8 +108,8 @@ const NavBar = (props) => {
                     <input type="text" class="form-control" name="order" value={animal.order}
                     onChange={handleChange}/>
                     <br/>
-                    <label htmlFor="suborder">Suborder: </label><br/>
-                    <input type="text" class="form-control" name="suborder" value={animal.suborder}
+                    <label htmlFor="genus:">Genus: </label><br/>
+                    <input type="text" class="form-control" name="genus" value={animal.genus}
                     onChange={handleChange}/>
                     <br/>
                     <label htmlFor="habitat">Habitat: </label><br/>
@@ -126,7 +126,12 @@ const NavBar = (props) => {
                     <br/>
                     <label htmlFor="level">Level: </label><br/>
                     <input type="number" class="form-control" name="level" value={animal.level}
-                    onChange={handleChange}/><br/>
+                    onChange={handleChange}/>
+                    <br/>
+                    <label htmlFor="description">Description: </label><br/>
+                    <input type="text" class="form-control" name="description" value={animal.description}
+                    onChange={handleChange}/>
+                    <br/>
                     <input type="submit" class="btn btn-dark" data-bs-dismiss="modal"/>
                 </form>
                 </div>
