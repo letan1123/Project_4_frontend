@@ -69,10 +69,10 @@ const Edit = (props) => {
         </div>
         </div>
 
-        <details>
+        {/* <details>
             <summary>Edit Animal</summary>
                 <form onSubmit={handleSubmit}>
-                    {/* htmlFor creates a loop */}
+                    htmlFor creates a loop
                     <label htmlFor="name">Name: </label><br/>
                     <input type="text" name="commonName" value={animal.commonName}
                     onChange={handleChange}/>
@@ -113,7 +113,7 @@ const Edit = (props) => {
                     onChange={handleChange}/>
                     <input type="submit"/>
                 </form>
-            </details>
+            </details> */}
         </>
     )
 }

@@ -1,7 +1,6 @@
 import './App.css';
 import {useState, useEffect} from'react'
 import axios from 'axios'
-// import Add from './components/Add'
 import Edit from './components/Edit'
 import NavBar from './components/NavBar'
 import Delete from './components/Delete'
@@ -10,6 +9,12 @@ import Delete from './components/Delete'
 
 function App() {
   const [animals, setAnimals] = useState([])
+  const [showAnimals, setShowAnimals] = useState(true)
+  const [showAnimal, setShowAnimal] = useState(false)
+
+  const googleURL = `https://www.google.com/maps/embed/v1/search?key=${process.env.REACT_APP_GOOGLEAPI}&q=`
+
+  const key = process.env.REACT_APP_GOOGLEAPI
 
   const getAnimals = () => {
     axios
@@ -48,41 +53,80 @@ function App() {
       // .delete('https://rocky-hollows-96922.herokuapp.com/api/species/' + deletedAnimal.id)
       .delete('http://localhost:8000/api/species/' + deletedAnimal.id)
       .then((response) => {
-        setAnimals(animals.filter(animal => animal.id !== deletedAnimal.id))
-        // getAnimals()
+        setShowAnimal(false)
+        setShowAnimals(true)
+        // setAnimals(animals.filter(animal => animal.id !== deletedAnimal.id))
+        getAnimals()
     })
   }
-
-
-
-  useEffect(() => {
-    getAnimals()
-  }, [])
-
-  return (
-    <>
-      <h1 id='title'>Endanged Species</h1>
-      <NavBar handleCreate={handleCreate}/>
-      {/* <Add handleCreate={handleCreate}/><br/> */}
+  const DisplayAllSpecies = () => {
+    return (
       <div class='container'>
         {animals.map((animal) => {
           return(
             <div class='animal' key={animal.id}>
               <h3>Name: {animal.commonName}</h3>
-              <h3>Species: {animal.species}</h3>
-              <h3>Habitat: {animal.habitat}</h3>
-              <h3>Diet: {animal.diet}</h3>
+              <h5>Species: {animal.species}</h5>
+              <h5>Habitat: {animal.habitat}</h5>
+              <h5>Diet: {animal.diet}</h5>
               <img src={animal.image} alt={animal.commonName}></img>
-              <h3>Level: {animal.level}</h3>
-              <Edit handleUpdate={handleUpdate} animal={animal} key={animal.id}/>
-              <button onClick={() => {handleDelete(animal)}}>
-              Delete
-              </button>
-              <Delete animal={animal} handleDelete={handleDelete} key={animal.id}/>
+              <h5>Level: {animal.level}</h5>
+              <a href='#' onClick={() => {showPage(animal)}} class="btn btn-link" role="button">Expand Species</a>
             </div> 
           )
         })}
       </div>
+    )
+  }
+  const DisplayOneSpecies = () => {
+    return (
+      <div class='container'>
+        {animals.map((animal) => {
+          return(
+            <div class='singleAnimal' key={animal.id}>
+              <h3>Name: {animal.commonName}</h3>
+              <h5>Species: {animal.species}</h5>
+              <h5>Diet: {animal.diet}</h5>
+              <img src={animal.image} alt={animal.commonName}></img>
+              <h5>Level: {animal.level}</h5>
+              <h5>Habitat: {animal.habitat}</h5>
+              {/*============= GOOGLE MAPS API =============*/}
+              <iframe
+                className="map"
+                src={`${googleURL} + ${animal.habitat}`}>
+              </iframe>
+
+              <Edit handleUpdate={handleUpdate} animal={animal} key={animal.id}/>
+              <Delete handleDelete={handleDelete} animal={animal} key={animal.id}/>
+            </div> 
+          )
+        })}
+      </div>
+    )
+  }
+  const homePage = () => {
+    getAnimals()
+    setShowAnimals(true)
+    setShowAnimal(false)
+  }
+  const showPage = (selectedAnimal) => {
+    setShowAnimal(true)
+    setShowAnimals(false)
+    setAnimals(animals.filter(animal => animal.id == selectedAnimal.id))
+  }
+
+  useEffect(() => {
+    getAnimals()
+    setShowAnimals(true)
+    setShowAnimal(false)
+  }, [])
+
+  return (
+    <>
+      <h1 id='title'>Endangered Species</h1>
+      <NavBar handleCreate={handleCreate} homePage={homePage}/>
+      {showAnimals ? <DisplayAllSpecies/> : null}
+      {showAnimal ? <DisplayOneSpecies/> : null}
     </>
   )
 }

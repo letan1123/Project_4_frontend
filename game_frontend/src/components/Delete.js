@@ -24,7 +24,7 @@ Deleting this Species will permanantly delete the Animal from the database. Do y
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-    <button type="button" onClick={() => {props.handleDelete(props.animal.key)}} class="btn btn-secondary" data-bs-dismiss="modal">Delete</button>
+    <button type="button" onClick={() => {props.handleDelete(props.animal)}} class="btn btn-secondary" data-bs-dismiss="modal">Delete</button>
 </div>
 </div>
 </div>
