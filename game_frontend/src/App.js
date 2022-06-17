@@ -1,6 +1,7 @@
 import './App.css';
 import {useState, useEffect} from'react'
 import axios from 'axios'
+import Fuse from 'fuse.js'
 import Edit from './components/Edit'
 import NavBar from './components/NavBar'
 import Delete from './components/Delete'
@@ -9,6 +10,7 @@ import Delete from './components/Delete'
 
 function App() {
   const [animals, setAnimals] = useState([])
+  const [query, setQuery] = useState('')
   const [showAnimals, setShowAnimals] = useState(true)
   const [showAnimal, setShowAnimal] = useState(false)
 
@@ -16,6 +18,29 @@ function App() {
 
   // const APIBaseURL = 'https://rocky-hollows-96922.herokuapp.com/api/species'
   const APIBaseURL = 'http://localhost:8000/api/species'
+
+{/* ============================= SEARCH BAR ============================= */}
+
+    const fuse = new Fuse(animals, {
+      keys: [
+        'commonName',
+        'species',
+        'habitat',
+        'diet'
+      ],
+      includeScore: true
+  })
+
+  const results = fuse.search(query)
+  const animalResults = query ? results.map(result => result.item) : animals
+
+  function handleOnSearch({ currentTarget = {} })  {
+    const { value } = currentTarget;
+    setQuery(value)
+
+  }
+
+  {/* ========================== HANDLES CHANGES =========================== */}
 
   const getAnimals = () => {
     axios
@@ -59,7 +84,7 @@ function App() {
   const DisplayAllSpecies = () => {
     return (
       <div class='container'>
-        {animals.map((animal) => {
+        {animalResults.map((animal) => {
           return(
             <div class='animal' key={animal.id}>
               <h3>Name: {animal.commonName}</h3>
@@ -115,6 +140,8 @@ function App() {
     setAnimals(animals.filter(animal => animal.id == selectedAnimal.id))
   }
 
+
+
   useEffect(() => {
     getAnimals()
     setShowAnimals(true)
@@ -124,7 +151,13 @@ function App() {
   return (
     <>
       <h1 id='title'>Endangered Species</h1>
-      <NavBar handleCreate={handleCreate} homePage={homePage}/>
+      <NavBar 
+        handleCreate={handleCreate} 
+        homePage={homePage} 
+        query={query} 
+        handleOnSearch={handleOnSearch}
+      />
+
       {showAnimals ? <DisplayAllSpecies/> : null}
       {showAnimal ? <DisplayOneSpecies/> : null}
     </>

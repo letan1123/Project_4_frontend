@@ -6,6 +6,7 @@ const NavBar = (props) => {
 
     const [animal, setAnimal] = useState(emptyAnimal)
 
+
     const handleChange = (event) => {
         setAnimal({...animal, [event.target.name]: event.target.value})
     }
@@ -64,8 +65,8 @@ const NavBar = (props) => {
             {/* ======================= NAV SEARCH BAR LINK ======================= */}
 
             <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input class="form-control me-2" type='text' placeholder="Search This Page" value={props.query} id='query' onChange={props.handleOnSearch}/>
+                <button class="btn btn-outline-success" type="submit" onChange={props.handleOnSearch}>Search</button>
             </form>
             </div>
         </div>
