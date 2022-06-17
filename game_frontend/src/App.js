@@ -14,12 +14,12 @@ function App() {
 
   const googleURL = `https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_API_KEY}&q=`
 
-
+  // const APIBaseURL = 'https://rocky-hollows-96922.herokuapp.com/api/species'
+  const APIBaseURL = 'http://localhost:8000/api/species'
 
   const getAnimals = () => {
     axios
-        // .get('https://rocky-hollows-96922.herokuapp.com/api/species')
-        .get('http://localhost:8000/api/species')
+        .get(APIBaseURL)
         .then(response => setAnimals(response.data),
         (err)=> console.error(err)
         )
@@ -27,8 +27,7 @@ function App() {
   }
   const handleCreate = (addAnimal) => {
     axios
-      // .post('https://rocky-hollows-96922.herokuapp.com/api/species', addAnimal)
-      .post('http://localhost:8000/api/species', addAnimal)
+      .post(APIBaseURL, addAnimal)
       .then((response) => {
         // takes the existing state and spreads it, adds new object to the end
         setAnimals([...animals, response.data])
@@ -39,8 +38,7 @@ function App() {
   const handleUpdate =(editAnimal) => {
     axios   
     // id updates ID in DB, editAnimal brings the info from that function
-      // .put('https://rocky-hollows-96922.herokuapp.com/api/species/' + editAnimal.id, editAnimal)
-      .put('http://localhost:8000/api/species/' + editAnimal.id, editAnimal)
+      .put(APIBaseURL + '/' + editAnimal.id, editAnimal)
       .then((response) => {
         setAnimals(animals.map((animal) => {
           return animal.id !== response.data.id ? animal : response.data
@@ -50,8 +48,7 @@ function App() {
   }
   const handleDelete = (deletedAnimal) => {
     axios
-      // .delete('https://rocky-hollows-96922.herokuapp.com/api/species/' + deletedAnimal.id)
-      .delete('http://localhost:8000/api/species/' + deletedAnimal.id)
+      .delete(APIBaseURL + '/' + deletedAnimal.id)
       .then((response) => {
         setShowAnimal(false)
         setShowAnimals(true)
