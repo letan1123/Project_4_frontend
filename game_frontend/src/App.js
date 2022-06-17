@@ -12,9 +12,9 @@ function App() {
   const [showAnimals, setShowAnimals] = useState(true)
   const [showAnimal, setShowAnimal] = useState(false)
 
-  const googleURL = `https://www.google.com/maps/embed/v1/search?key=${process.env.REACT_APP_GOOGLEAPI}&q=`
+  const googleURL = `https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_API_KEY}&q=`
 
-  const key = process.env.REACT_APP_GOOGLEAPI
+
 
   const getAnimals = () => {
     axios
@@ -38,7 +38,7 @@ function App() {
   }
   const handleUpdate =(editAnimal) => {
     axios   
-    // id updates ID in DB, editComic brings the info from that function
+    // id updates ID in DB, editAnimal brings the info from that function
       // .put('https://rocky-hollows-96922.herokuapp.com/api/species/' + editAnimal.id, editAnimal)
       .put('http://localhost:8000/api/species/' + editAnimal.id, editAnimal)
       .then((response) => {
@@ -93,9 +93,12 @@ function App() {
               {/*============= GOOGLE MAPS API =============*/}
               <iframe
                 className="map"
+                width='800'
+                height='550'
+                loading='lazy'              
                 src={`${googleURL} + ${animal.habitat}`}>
               </iframe>
-
+              {/*============= GOOGLE MAPS API =============*/}
               <Edit handleUpdate={handleUpdate} animal={animal} key={animal.id}/>
               <Delete handleDelete={handleDelete} animal={animal} key={animal.id}/>
             </div> 
