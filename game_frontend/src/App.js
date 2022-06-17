@@ -37,7 +37,6 @@ function App() {
   function handleOnSearch({ currentTarget = {} })  {
     const { value } = currentTarget;
     setQuery(value)
-
   }
 
   {/* ========================== HANDLES CHANGES =========================== */}
