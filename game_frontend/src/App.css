@@ -21,8 +21,23 @@
   margin-bottom: 15px;
 }
 img {
-  width: 100%;
-  max-width: 250px;
+  /* width: 100%;
+  max-width: 250px; */
+  /* float: left; */
+  width:  250px;
+  height: 350px;
+  object-fit: cover;
+}
+#showImg {
+  margin-top: 10px;
+  margin-left: 10px;
+  /* float: left; */
+  top: 25%;
+  left: 12%;
+  position: absolute;
+  width:  250px;
+  height: 350px;
+  object-fit: cover;
 }
 #title {
   text-align: center;
