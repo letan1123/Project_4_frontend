@@ -22,7 +22,7 @@ const NavBar = (props) => {
         {/* ======================= NAV BAR ======================= */}
         <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Endangered Species</a>
+            <a class="navbar-brand">Endangered Species</a>
             <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
             <ul class="navbar-nav mx-auto">
                 {/* ======================= HOME LINK ======================= */}
@@ -31,31 +31,37 @@ const NavBar = (props) => {
                 </li>
                 {/* ==================== MODAL TRIGGER FOR ADD SPECIES ===================== */}
                 <li class="nav-item">
-                    <a class="nav-link" href="#" role="button" data-bs-toggle="modal" data-bs-target="#modalAdd"><i class="bi bi-plus-circle"> Add Species</i></a>
+                    <a class="nav-link" role="button" data-bs-toggle="modal" data-bs-target="#modalAdd"><i class="bi bi-plus-circle"> Add Species</i></a>
                 </li>
 
                 {/* ================== CONSERVATION DROPDOWN NAV BAR LINK ================== */}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Conservation Info</a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Conservation Links</a>
 
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="https://www.movebank.org/cms/webapp?gwt_fragment=page=search_map">Animal Tracking Data</a></li>
-                    <li><a class="dropdown-item" href="https://awionline.org/content/list-endangered-species" target='_blank'>Endangered Animals</a></li>
+                    <li><a class="dropdown-item" href="https://www.movebank.org/cms/webapp?gwt_fragment=page=search_map" target='_blank' rel="noreferrer">Animal Tracking Data</a></li>
+                    <li><a class="dropdown-item" href="https://awionline.org/content/list-endangered-species" target='_blank' rel="noreferrer">Endangered Animals</a></li>
                     <li><hr class="dropdown-divider"/></li>
-                    <li><a class="dropdown-item" href="https://awionline.org/content/what-you-can-do-wildlife" target='_blank'>What you can do</a></li>
+                    <li><a class="dropdown-item" href="https://awionline.org/content/what-you-can-do-wildlife" target='_blank' rel="noreferrer">What you can do</a></li>
                 </ul>
                 </li>
             {/* ======================= ABOUT DROPDOWN NAV BAR LINK ======================= */}
-            <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
 
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="https://github.com/Lanny-MacMillan" target='_blank'><i class="bi bi-github"> Lanny</i></a></li>
-                    <li><a class="dropdown-item" href="https://github.com/hollowred" target='_blank'><i class="bi bi-github"> Salem</i></a></li>
-                    <li><a class="dropdown-item" href="https://github.com/letan1123" target='_blank'><i class="bi bi-github"> Tan</i></a></li>
+                    <li><a class="dropdown-item" href="https://github.com/Lanny-MacMillan" target='_blank' rel="noreferrer"><i class="bi bi-github"> Lanny</i></a></li>
+                    <li><a class="dropdown-item" href="https://github.com/hollowred" target='_blank' rel="noreferrer"><i class="bi bi-github"> Salem</i></a></li>
+                    <li><a class="dropdown-item" href="https://github.com/letan1123" target='_blank' rel="noreferrer"><i class="bi bi-github"> Tan</i></a></li>
                     <li><hr class="dropdown-divider"/></li>
-                    <li><a class="dropdown-item" href="#" target='_blank'> <i class="bi bi-envelope"> Contact Us</i></a></li>
+                    <li><a class="dropdown-item" target='_blank' rel="noreferrer"> <i class="bi bi-envelope"> Contact Us</i></a></li>
                 </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" role='button' onClick={() => {props.conservationPage(props)}}>Conservation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" role='button' onClick={() => {props.sourcePage(props)}}>Sources</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link disabled">© 2022</a>
