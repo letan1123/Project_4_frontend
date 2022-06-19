@@ -20,10 +20,16 @@ const Sources = (props) => {
             <li>
                 <a href='https://www.iucn.org/'>IUCN, International Union for Conservation of Nature</a>
             </li>
+            <li>
+                <a href='https://www.nwf.org/Educational-Resources/Wildlife-Guide/Threats-to-Wildlife'>The National Wildlife Federation, Threats to Wildlife</a>
+            </li>
+            <li>
+                <a href='https://www.worldwildlife.org//'>WWF, World Wildlife - Conservation of Nature</a>
+            </li>
         </ul>
 
 
-
+        
 
         </>
     )

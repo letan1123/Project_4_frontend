@@ -5,6 +5,7 @@ import Fuse from 'fuse.js'
 import Edit from './components/Edit'
 import NavBar from './components/NavBar'
 import Delete from './components/Delete'
+import Table from './components/Table'
 import Conservation from './components/Conservation'
 import Sources from './components/Sources'
 
@@ -111,15 +112,11 @@ function App() {
             <img src={animal.image} alt={animal.commonName} id='showImg'></img>
           </div>
           <div class="description">
-            <h5>Description: {animal.description}</h5>
+            <h1 class='showHeader'>Species Description: </h1>
+            <h5>{animal.description}</h5>
           </div>
           <div class="stats">
-            <h3>Name: {animal.commonName}</h3>
-            <h5>Species: {animal.species}</h5>
-            <h5>Order: {animal.order}</h5>
-            <h5>Genus: {animal.genus}</h5>
-            <h5>Diet: {animal.diet}</h5>
-            <h5>level: {animal.level}</h5>
+            <Table animal={animal}/>
           </div>
           <div class="mapsApi">
         {/*============= GOOGLE MAPS API =============*/}
@@ -134,6 +131,7 @@ function App() {
           </div>
           <Edit handleUpdate={handleUpdate} animal={animal} key={animal.id}/>
           <Delete handleDelete={handleDelete} animal={animal} key={animal.id}/>
+          <a id='showBtn' type="button" class="btn btn-dark" href={`https://en.wikipedia.org/wiki/Special:Search/% + ${animal.commonName}`}  target='_blank' rel="noreferrer">Wikipedia {animal.commonName}</a>
         </div>
           )
         })}
@@ -143,7 +141,7 @@ function App() {
   const DisplaySources = () => {
     return(
       <>
-          <Sources sourcePage={sourcePage}/>
+        <Sources sourcePage={sourcePage}/>
       </>
     )
   }

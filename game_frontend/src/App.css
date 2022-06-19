@@ -13,11 +13,11 @@
   margin: 15px;
 }
 .infoContainer1 {
-  /* display: flex;
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   flex-direction: row;
-  text-align: center; */
+  text-align: center;
   margin: 15px;
   /* background-color: grey; */
 }
@@ -99,24 +99,37 @@ td, th {
   padding: 20px 10px;
   text-align: center;
 }
-
+.showHeader {
+  color: rgb(213, 213, 213);
+  overflow: hidden;
+  background-color: #000000;
+  padding: 20px 10px;
+  text-align: center;
+}
 /* ================= CSS GRID =================== */
 .showContainer {  display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1.5fr 0fr 0.9fr 1.8fr 1.1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
     "showImg showImg description description description"
     "showImg showImg description description description"
-    "stats stats description description description"
+    "showImg showImg . . ."
+    "showImg showImg mapsApi mapsApi mapsApi"
     "stats stats mapsApi mapsApi mapsApi"
     "stats stats mapsApi mapsApi mapsApi";
 }
-
+#showCommonName {
+  text-align: center;
+  font-size: 3em;
+}
+#showBtn:hover {
+  background-color:white;
+  color:black;
+}
 .showImg { 
   grid-area: showImg; 
-  border: 1px solid #000000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,25 +138,54 @@ td, th {
 
 .description { 
   grid-area: description;
-  border: 1px solid #000000;
   padding: 10px;
+  padding-top: 0;
 }
 
 .stats { 
   grid-area: stats;
-  border: 1px solid #000000;
   padding: 10px;
   text-align: center;
 }
 
 .mapsApi { 
   grid-area: mapsApi;
-  border: 1px solid #000000;
-  
 }
 
 #showImg {
   flex-shrink: 0;
   min-width: 100%;
   min-height: 100%
+}
+
+/* ================= CAROSEL =================== */
+#carouselCaption {
+  font-size: 18px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+.redListImg {
+  width: 100%;
+  max-width: 75%;
+}
+.container2 {
+  display: grid; 
+  grid-auto-columns: 1fr; 
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "chart body"
+    "chart body"; 
+}
+.chart { 
+  grid-area: chart; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.body { 
+  grid-area: body; 
 }

@@ -14,7 +14,7 @@ const Edit = (props) => {
     return(
         <>
             {/* ======================= MODAL WINDOW TO EDIT SPECIES ======================= */}
-        <a class="nav-link" role="button" data-bs-toggle="modal" data-bs-target="#modalEdit">Edit Species</a>
+        <a id='showBtn' type="button" class="btn btn-dark" role="button" data-bs-toggle="modal" data-bs-target="#modalEdit">Edit Species</a>
 
             {/* ======================= MODAL WINDOW TO EDIT SPECIES ======================= */}
         <div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
