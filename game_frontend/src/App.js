@@ -5,6 +5,9 @@ import Fuse from 'fuse.js'
 import Edit from './components/Edit'
 import NavBar from './components/NavBar'
 import Delete from './components/Delete'
+import Table from './components/Table'
+import Conservation from './components/Conservation'
+import Sources from './components/Sources'
 
 
 
@@ -13,10 +16,15 @@ function App() {
   const [query, setQuery] = useState('')
   const [showAnimals, setShowAnimals] = useState(true)
   const [showAnimal, setShowAnimal] = useState(false)
+
   const [countStart, setCountStart] = useState(0)
   const [countEnd, setCountEnd] = useState(2)
 
-  const googleURL = `https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_API_KEY}&q=`
+  const [showSources, setShowSources] = useState(false)
+  const [showConservation, setShowConservation] = useState(false)
+
+
+  const googleURL = `https://www.google.com/maps/embed/v1/search?key=${process.env.REACT_APP_API_KEY}&q=`
 
   const APIBaseURL = 'https://rocky-hollows-96922.herokuapp.com/api/species'
   // const APIBaseURL = 'http://localhost:8000/api/species'
@@ -44,14 +52,20 @@ function App() {
   {/* ========================== HANDLES CHANGES =========================== */}
 
   const nextCount = () => {
-
-    setCountEnd(countEnd + 2)
-    setCountStart(countStart + 2)
-
+    axios.get(APIBaseURL).then((response) => {
+      setCountEnd(response.data.length)
+      if (countEnd >= response.data.length || countStart == response.data.length - 2) {
+        setCountEnd(response.data.length)
+        setCountStart(response.data.length - 2)
+      } else {
+      setCountEnd(countEnd + 2)
+      setCountStart(countStart + 2)
+      }
+    })
   }
 
   const prevCount = () => {
-    if (countStart <= 0 || countEnd < 0) {
+    if (countStart <= 1) {
       setCountStart(0)
       setCountEnd(2)
     } else {
@@ -142,6 +156,7 @@ function App() {
       <div className='container'>
         {animalResults.slice(countStart,countEnd).map((animal) => {
           return(
+
             <div className='animal' key={animal.id}>
             <table className="main-table">
               <tr className="main-tr">
@@ -169,7 +184,7 @@ function App() {
               {animal.level == 5 ? <img src="https://a-z-animals.com/media/cr.jpg"></img> : null }
               {animal.level == 6 ? <img src="https://a-z-animals.com/media/ew.jpg"></img> : null}
               {animal.level == 7 ? <img src="https://a-z-animals.com/media/ex.jpg"></img> : null}
-              {animal.level > 7 ? null : null}
+              {animal.level > 7 ? <h3>Not A Category</h3> : null}
               <a href='#' onClick={() => {showPage(animal)}} class="btn btn-link" role="button">Expand</a>
             </div>
           )
@@ -183,47 +198,86 @@ function App() {
       <div class='container'>
         {animals.map((animal) => {
           return(
-            <div class='singleAnimal' key={animal.id}>
-              <h3>Name: {animal.commonName}</h3>
-              <h5>Species: {animal.species}</h5>
-              <h5>Diet: {animal.diet}</h5>
-              <img src={animal.image} alt={animal.commonName}></img>
-              <h5>Level: {animal.level}</h5>
-              <h5>Habitat: {animal.habitat}</h5>
-              {/*============= GOOGLE MAPS API =============*/}
+        <div class="showContainer">
+          <div class="showImg">
+            <img className="single-page-image" src={animal.image} alt={animal.commonName} id='showImg'></img>
+          </div>
+          <div class="description">
+            <h1 class='showHeader'>Species Description: </h1>
+            <h5>{animal.description}</h5>
+          </div>
+          <div class="stats">
+            <Table animal={animal}/>
+          </div>
+          <div class="mapsApi">
+        {/*============= GOOGLE MAPS API =============*/}
               <iframe
                 className="map"
-                width='800'
-                height='550'
+                width='100%'
+                height='100%'
                 loading='lazy'
                 src={`${googleURL} + ${animal.habitat}`}>
               </iframe>
-              {/*============= GOOGLE MAPS API =============*/}
-              <Edit handleUpdate={handleUpdate} animal={animal} key={animal.id}/>
-              <Delete handleDelete={handleDelete} animal={animal} key={animal.id}/>
-            </div>
+        {/*============= GOOGLE MAPS API =============*/}
+          </div>
+          <Edit handleUpdate={handleUpdate} animal={animal} key={animal.id}/>
+          <Delete handleDelete={handleDelete} animal={animal} key={animal.id}/>
+          <a id='showBtn' type="button" class="btn btn-dark" href={`https://en.wikipedia.org/wiki/Special:Search/% + ${animal.commonName}`}  target='_blank' rel="noreferrer">Wikipedia {animal.commonName}</a>
+        </div>
           )
         })}
       </div>
+    )
+  }
+  const DisplaySources = () => {
+    return(
+      <>
+        <Sources sourcePage={sourcePage}/>
+      </>
+    )
+  }
+
+  const DisplayConservation = () => {
+    return (
+      <>
+          <Conservation conservationPage={conservationPage}/>
+      </>
     )
   }
   const homePage = () => {
     getAnimals()
     setShowAnimals(true)
     setShowAnimal(false)
+    setShowSources(false)
+    setShowConservation(false)
   }
   const showPage = (selectedAnimal) => {
     setShowAnimal(true)
     setShowAnimals(false)
+    setShowSources(false)
+    setShowConservation(false)
     setAnimals(animals.filter(animal => animal.id == selectedAnimal.id))
   }
 
-
+  const sourcePage = () => {
+    setShowAnimals(false)
+    setShowAnimal(false)
+    setShowConservation(false)
+    setShowSources(true)
+  }
+  const conservationPage = () => {
+    setShowAnimals(false)
+    setShowAnimal(false)
+    setShowSources(false)
+    setShowConservation(true)
+  }
 
   useEffect(() => {
     getAnimals()
     setShowAnimals(true)
     setShowAnimal(false)
+    setShowSources(false)
+    setShowConservation(false)
   }, [])
 
   return (
@@ -234,10 +288,14 @@ function App() {
         homePage={homePage}
         query={query}
         handleOnSearch={handleOnSearch}
+        sourcePage={sourcePage}
+        conservationPage={conservationPage}
       />
 
       {showAnimals ? <DisplayAllSpecies/> : null}
       {showAnimal ? <DisplayOneSpecies/> : null}
+      {showSources ? <DisplaySources/> : null}
+      {showConservation ? <DisplayConservation/> : null}
     </>
   )
 }
