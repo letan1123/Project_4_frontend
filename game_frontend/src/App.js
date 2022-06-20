@@ -52,14 +52,20 @@ function App() {
   {/* ========================== HANDLES CHANGES =========================== */}
 
   const nextCount = () => {
-
-    setCountEnd(countEnd + 2)
-    setCountStart(countStart + 2)
-
+    axios.get(APIBaseURL).then((response) => {
+      setCountEnd(response.data.length)
+      if (countEnd >= response.data.length || countStart == response.data.length - 2) {
+        setCountEnd(response.data.length)
+        setCountStart(response.data.length - 2)
+      } else {
+      setCountEnd(countEnd + 2)
+      setCountStart(countStart + 2)
+      }
+    })
   }
 
   const prevCount = () => {
-    if (countStart <= 0 || countEnd < 0) {
+    if (countStart <= 1) {
       setCountStart(0)
       setCountEnd(2)
     } else {
@@ -177,7 +183,7 @@ function App() {
               {animal.level == 5 ? <img src="https://a-z-animals.com/media/cr.jpg"></img> : null }
               {animal.level == 6 ? <img src="https://a-z-animals.com/media/ew.jpg"></img> : null}
               {animal.level == 7 ? <img src="https://a-z-animals.com/media/ex.jpg"></img> : null}
-              {animal.level > 7 ? null : null}
+              {animal.level > 7 ? <h3>Not A Category</h3> : null}
               <a href='#' onClick={() => {showPage(animal)}} class="btn btn-link" role="button">Expand</a>
             </div>
           )
@@ -193,7 +199,7 @@ function App() {
           return(
         <div class="showContainer">
           <div class="showImg">
-            <img src={animal.image} alt={animal.commonName} id='showImg'></img>
+            <img className="single-page-image" src={animal.image} alt={animal.commonName} id='showImg'></img>
           </div>
           <div class="description">
             <h1 class='showHeader'>Species Description: </h1>
@@ -208,7 +214,7 @@ function App() {
                 className="map"
                 width='100%'
                 height='100%'
-                loading='lazy'              
+                loading='lazy'
                 src={`${googleURL} + ${animal.habitat}`}>
               </iframe>
         {/*============= GOOGLE MAPS API =============*/}
