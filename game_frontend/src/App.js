@@ -16,8 +16,13 @@ function App() {
   const [query, setQuery] = useState('')
   const [showAnimals, setShowAnimals] = useState(true)
   const [showAnimal, setShowAnimal] = useState(false)
+
+  const [countStart, setCountStart] = useState(0)
+  const [countEnd, setCountEnd] = useState(2)
+
   const [showSources, setShowSources] = useState(false)
   const [showConservation, setShowConservation] = useState(false)
+
 
   const googleURL = `https://www.google.com/maps/embed/v1/search?key=${process.env.REACT_APP_API_KEY}&q=`
 
@@ -46,6 +51,24 @@ function App() {
 
   {/* ========================== HANDLES CHANGES =========================== */}
 
+  const nextCount = () => {
+
+    setCountEnd(countEnd + 2)
+    setCountStart(countStart + 2)
+
+  }
+
+  const prevCount = () => {
+    if (countStart <= 0 || countEnd < 0) {
+      setCountStart(0)
+      setCountEnd(2)
+    } else {
+
+    setCountEnd(countEnd - 2)
+    setCountStart(countStart - 2)
+  }
+  }
+
   const getAnimals = () => {
     axios
         .get(APIBaseURL)
@@ -64,8 +87,9 @@ function App() {
         // getAnimals()
       })
   }
+
   const handleUpdate =(editAnimal) => {
-    axios   
+    axios
     // id updates ID in DB, editAnimal brings the info from that function
       .put(APIBaseURL + '/' + editAnimal.id, editAnimal)
       .then((response) => {
@@ -87,19 +111,79 @@ function App() {
   }
   const DisplayAllSpecies = () => {
     return (
-      <div class='container'>
-        {animalResults.map((animal) => {
+      <>
+        <div>
+          <table className="top-table">
+            <tr className="top-tr">
+              <th className="top-th">1</th>
+              <th className="top-th">2</th>
+              <th className="top-th">3</th>
+              <th className="top-th">4</th>
+              <th className="top-th">5</th>
+              <th className="top-th">6</th>
+              <th className="top-th">7</th>
+            </tr>
+            <tr className="top-tr">
+              <th className="top-th">LC</th>
+              <th className="top-th">NT</th>
+              <th className="top-th">VU</th>
+              <th className="top-th">EN</th>
+              <th className="top-th">CR</th>
+              <th className="top-th">EW</th>
+              <th className="top-th">EX</th>
+            </tr>
+            <tr className="top-tr">
+              <th className="top-th">Least Concerned</th>
+              <th className="top-th">Near Threatened</th>
+              <th className="top-th">Vulnerable</th>
+              <th className="top-th">Endangered</th>
+              <th className="top-th">Critically Endangered</th>
+              <th className="top-th">Extinct in the Wild</th>
+              <th className="top-th">Extinct</th>
+            </tr>
+          </table>
+        </div>
+        <div className="button-container-top">
+          <button className="button-prev button-top" onClick={prevCount}>Previous</button>
+          <button className="button-next button-top" onClick={nextCount}>Next</button>
+        </div>
+      <div className='container'>
+        {animalResults.slice(countStart,countEnd).map((animal) => {
           return(
-            <div class='animal' key={animal.id}>
-              <h3>Name: {animal.commonName}</h3>
-              <h5>Species: {animal.species}</h5>
-              <img src={animal.image} alt={animal.commonName}></img>
-              <h5>Level: {animal.level}</h5>
-              <a href='#' onClick={() => {showPage(animal)}} class="btn btn-link" role="button">Expand Species</a>
-            </div> 
+            <div className='animal' key={animal.id}>
+            <table className="main-table">
+              <tr className="main-tr">
+                <th className="main-th">Name</th>
+                <th className="main-th">{animal.commonName}</th>
+              </tr>
+              <tr className="main-tr">
+                <th className="main-th">Species</th>
+                <th className="main-th">{animal.species}</th>
+              </tr>
+              <tr className="main-tr">
+                <th className="main-th">Hatitat</th>
+                <th className="main-th">{animal.habitat}</th>
+              </tr>
+              <tr className="main-tr">
+                <th className="main-th">Diet</th>
+                <th className="main-th">{animal.diet}</th>
+              </tr>
+            </table>
+              <img className="show-page-images" src={animal.image} alt={animal.commonName}></img>
+              {animal.level == 1 ? <img src="https://a-z-animals.com/media/lc.jpg"></img> : null}
+              {animal.level == 2 ? <img src="https://a-z-animals.com/media/nt.jpg"></img> : null}
+              {animal.level == 3 ? <img src="https://a-z-animals.com/media/vu.jpg"></img> : null}
+              {animal.level == 4 ? <img src="https://a-z-animals.com/media/en.jpg"></img> : null}
+              {animal.level == 5 ? <img src="https://a-z-animals.com/media/cr.jpg"></img> : null }
+              {animal.level == 6 ? <img src="https://a-z-animals.com/media/ew.jpg"></img> : null}
+              {animal.level == 7 ? <img src="https://a-z-animals.com/media/ex.jpg"></img> : null}
+              {animal.level > 7 ? null : null}
+              <a href='#' onClick={() => {showPage(animal)}} class="btn btn-link" role="button">Expand</a>
+            </div>
           )
         })}
       </div>
+      </>
     )
   }
   const DisplayOneSpecies = () => {
@@ -192,10 +276,10 @@ function App() {
   return (
     <>
       <h1 id='title'>Endangered Species</h1>
-      <NavBar 
-        handleCreate={handleCreate} 
-        homePage={homePage} 
-        query={query} 
+      <NavBar
+        handleCreate={handleCreate}
+        homePage={homePage}
+        query={query}
         handleOnSearch={handleOnSearch}
         sourcePage={sourcePage}
         conservationPage={conservationPage}
