@@ -5,6 +5,9 @@ import Fuse from 'fuse.js'
 import Edit from './components/Edit'
 import NavBar from './components/NavBar'
 import Delete from './components/Delete'
+import Table from './components/Table'
+import Conservation from './components/Conservation'
+import Sources from './components/Sources'
 
 
 
@@ -13,6 +16,8 @@ function App() {
   const [query, setQuery] = useState('')
   const [showAnimals, setShowAnimals] = useState(true)
   const [showAnimal, setShowAnimal] = useState(false)
+  const [showSources, setShowSources] = useState(false)
+  const [showConservation, setShowConservation] = useState(false)
 
   const googleURL = `https://www.google.com/maps/embed/v1/search?key=${process.env.REACT_APP_API_KEY}&q=`
 
@@ -102,48 +107,86 @@ function App() {
       <div class='container'>
         {animals.map((animal) => {
           return(
-            <div class='singleAnimal' key={animal.id}>
-              <h3>Name: {animal.commonName}</h3>
-              <h5>Species: {animal.species}</h5>
-              <h5>Description: {animal.description}</h5>
-              <h5>Diet: {animal.diet}</h5>
-              <h5>Order: {animal.order}</h5>
-              <h5>Genus: {animal.genus}</h5>
-              <img src={animal.image} alt={animal.commonName} id='showImg'></img>
-              <h5>Level: {animal.level}</h5>
-              <h5>Habitat: {animal.habitat}</h5>
-              {/*============= GOOGLE MAPS API =============*/}
+        <div class="showContainer">
+          <div class="showImg">
+            <img src={animal.image} alt={animal.commonName} id='showImg'></img>
+          </div>
+          <div class="description">
+            <h1 class='showHeader'>Species Description: </h1>
+            <h5>{animal.description}</h5>
+          </div>
+          <div class="stats">
+            <Table animal={animal}/>
+          </div>
+          <div class="mapsApi">
+        {/*============= GOOGLE MAPS API =============*/}
               <iframe
                 className="map"
-                width='800'
-                height='550'
+                width='100%'
+                height='100%'
                 loading='lazy'              
                 src={`${googleURL} + ${animal.habitat}`}>
               </iframe>
-              {/*============= GOOGLE MAPS API =============*/}
-              <Edit handleUpdate={handleUpdate} animal={animal} key={animal.id}/>
-              <Delete handleDelete={handleDelete} animal={animal} key={animal.id}/>
-            </div> 
+        {/*============= GOOGLE MAPS API =============*/}
+          </div>
+          <Edit handleUpdate={handleUpdate} animal={animal} key={animal.id}/>
+          <Delete handleDelete={handleDelete} animal={animal} key={animal.id}/>
+          <a id='showBtn' type="button" class="btn btn-dark" href={`https://en.wikipedia.org/wiki/Special:Search/% + ${animal.commonName}`}  target='_blank' rel="noreferrer">Wikipedia {animal.commonName}</a>
+        </div>
           )
         })}
       </div>
+    )
+  }
+  const DisplaySources = () => {
+    return(
+      <>
+        <Sources sourcePage={sourcePage}/>
+      </>
+    )
+  }
+
+  const DisplayConservation = () => {
+    return (
+      <>
+          <Conservation conservationPage={conservationPage}/>
+      </>
     )
   }
   const homePage = () => {
     getAnimals()
     setShowAnimals(true)
     setShowAnimal(false)
+    setShowSources(false)
+    setShowConservation(false)
   }
   const showPage = (selectedAnimal) => {
     setShowAnimal(true)
     setShowAnimals(false)
+    setShowSources(false)
+    setShowConservation(false)
     setAnimals(animals.filter(animal => animal.id == selectedAnimal.id))
+  }
+
+  const sourcePage = () => {
+    setShowAnimals(false)
+    setShowAnimal(false)
+    setShowConservation(false)
+    setShowSources(true)
+  }
+  const conservationPage = () => {
+    setShowAnimals(false)
+    setShowAnimal(false)
+    setShowSources(false)
+    setShowConservation(true)
   }
 
   useEffect(() => {
     getAnimals()
     setShowAnimals(true)
     setShowAnimal(false)
+    setShowSources(false)
+    setShowConservation(false)
   }, [])
 
   return (
@@ -154,10 +197,14 @@ function App() {
         homePage={homePage} 
         query={query} 
         handleOnSearch={handleOnSearch}
+        sourcePage={sourcePage}
+        conservationPage={conservationPage}
       />
 
       {showAnimals ? <DisplayAllSpecies/> : null}
       {showAnimal ? <DisplayOneSpecies/> : null}
+      {showSources ? <DisplaySources/> : null}
+      {showConservation ? <DisplayConservation/> : null}
     </>
   )
 }
