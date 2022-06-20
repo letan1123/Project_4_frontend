@@ -95,14 +95,15 @@ td, th {
 } */
 .header {
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: #d0d0d0;
+  /* background-color: #f1f1f1; */
   padding: 20px 10px;
   text-align: center;
 }
 .showHeader {
   color: rgb(213, 213, 213);
   overflow: hidden;
-  background-color: #000000;
+  background-color: #212529;
   padding: 20px 10px;
   text-align: center;
 }
@@ -168,24 +169,73 @@ td, th {
 
 .redListImg {
   width: 100%;
-  max-width: 75%;
+  max-width: 340px
 }
-.container2 {
-  display: grid; 
-  grid-auto-columns: 1fr; 
-  grid-template-columns: 1fr 1fr; 
-  grid-template-rows: 1fr 1fr; 
-  gap: 0px 0px; 
-  grid-template-areas: 
-    "chart body"
-    "chart body"; 
+#carouselCaptionName {
+  top: 0;
+  bottom: auto;
+  font-size: 22px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
-.chart { 
-  grid-area: chart; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* =========================================== */
+@media only screen and (min-device-width: 1200px) and (max-device-width: 1399px) {
+
 }
-.body { 
-  grid-area: body; 
+@media only screen and (min-device-width: 992px) and (max-device-width: 1199px) {
+  .showContainer {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1.5fr 0fr 0.9fr 1.8fr 1.1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "showImg showImg description description description"
+      "showImg showImg description description description"
+      "showImg showImg . . ."
+      "showImg showImg mapsApi mapsApi mapsApi"
+      "stats stats mapsApi mapsApi mapsApi"
+      "stats stats mapsApi mapsApi mapsApi";
+  }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 991px) {
+  .showContainer {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1.5fr 0fr 0.9fr 1.8fr 1.1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "showImg showImg description description description"
+      "showImg showImg description description description"
+      "showImg showImg . . ."
+      "showImg showImg mapsApi mapsApi mapsApi"
+      "stats stats mapsApi mapsApi mapsApi"
+      "stats stats mapsApi mapsApi mapsApi";
+  }
+  th {
+    width:5%;
+  }
+}
+@media only screen and (min-device-width: 576px) and (max-device-width: 767px) {
+  .showContainer {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1.5fr 0fr 0.9fr 1.8fr 1.1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "showImg showImg description description description"
+    "showImg showImg description description description"
+    "showImg showImg . . ."
+    "showImg showImg mapsApi mapsApi mapsApi"
+    "stats stats mapsApi mapsApi mapsApi"
+    "stats stats mapsApi mapsApi mapsApi";
+  }
+  th {
+    width:5%;
+  }
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 575px) {
+  th {
+    width:15%;
+  }
 }
