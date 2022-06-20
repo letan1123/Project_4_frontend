@@ -20,10 +20,10 @@ function App() {
   const [countStart, setCountStart] = useState(0)
   const [countEnd, setCountEnd] = useState(2)
 
-<<<<<<< HEAD
+
    const APIBaseURL = 'https://rocky-hollows-96922.herokuapp.com/api/species'
   //const APIBaseURL = 'http://localhost:8000/api/species'
-=======
+
   const [showSources, setShowSources] = useState(false)
   const [showConservation, setShowConservation] = useState(false)
 
@@ -235,7 +235,7 @@ function App() {
 =======
                 width='100%'
                 height='100%'
-                loading='lazy'              
+                loading='lazy'
                 src={`${googleURL} + ${animal.habitat}`}>
               </iframe>
         {/*============= GOOGLE MAPS API =============*/}
