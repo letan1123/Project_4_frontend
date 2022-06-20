@@ -9,7 +9,7 @@ return (
     <>
     
  {/* ======================= MODAL WINDOW TO DELETE SPECIES ======================= */}
- <a class="nav-link" href="#" role="button" data-bs-toggle="modal" data-bs-target="#modalDelete">Delete Species</a>
+ <a id='showBtn' type="button" class="btn btn-dark" role="button" data-bs-toggle="modal" data-bs-target="#modalDelete">Delete Species</a>
 
 {/* ======================= MODAL WINDOW TO DELETE SPECIES ======================= */}
 <div class="modal fade" id="modalDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
