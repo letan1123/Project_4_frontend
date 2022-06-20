@@ -180,9 +180,6 @@ td, th {
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 /* =========================================== */
-@media only screen and (min-device-width: 1200px) and (max-device-width: 1399px) {
-
-}
 @media only screen and (min-device-width: 992px) and (max-device-width: 1199px) {
   .showContainer {  display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -200,17 +197,15 @@ td, th {
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 991px) {
   .showContainer {  display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1.5fr 0fr 0.9fr 1.8fr 1.1fr;
-    gap: 0px 0px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1.5fr 0fr ;
+    gap: 10px 0px;
     grid-auto-flow: row;
     grid-template-areas:
-      "showImg showImg description description description"
-      "showImg showImg description description description"
-      "showImg showImg . . ."
-      "showImg showImg mapsApi mapsApi mapsApi"
-      "stats stats mapsApi mapsApi mapsApi"
-      "stats stats mapsApi mapsApi mapsApi";
+      "showImg showImg showImg showImg"
+      "stats stats description description"
+      "mapsApi mapsApi mapsApi mapsApi"
+      ". . . ."
   }
   th {
     width:5%;
@@ -218,23 +213,34 @@ td, th {
 }
 @media only screen and (min-device-width: 576px) and (max-device-width: 767px) {
   .showContainer {  display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1.5fr 0fr 0.9fr 1.8fr 1.1fr;
-    gap: 0px 0px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr .7fr .5fr 1.5fr 0fr;
+    gap: 5px 0px;
     grid-auto-flow: row;
     grid-template-areas:
-    "showImg showImg description description description"
-    "showImg showImg description description description"
-    "showImg showImg . . ."
-    "showImg showImg mapsApi mapsApi mapsApi"
-    "stats stats mapsApi mapsApi mapsApi"
-    "stats stats mapsApi mapsApi mapsApi";
+      "showImg "
+      "description "
+      "stats "
+      "mapsApi "
+      "."
   }
   th {
     width:5%;
   }
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 575px) {
+  .showContainer {  display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr .7fr .5fr 1.5fr 0fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "showImg "
+      "description "
+      "stats "
+      "mapsApi "
+      "."
+  }
   th {
     width:15%;
   }
