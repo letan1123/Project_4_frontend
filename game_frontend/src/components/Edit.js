@@ -14,7 +14,7 @@ const Edit = (props) => {
     return(
         <>
             {/* ======================= MODAL WINDOW TO EDIT SPECIES ======================= */}
-        <a class="nav-link" href="#" role="button" data-bs-toggle="modal" data-bs-target="#modalEdit">Edit Species</a>
+        <a id='showBtn' type="button" class="btn btn-dark" role="button" data-bs-toggle="modal" data-bs-target="#modalEdit">Edit Species</a>
 
             {/* ======================= MODAL WINDOW TO EDIT SPECIES ======================= */}
         <div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -39,8 +39,8 @@ const Edit = (props) => {
                     <input type="text" class="form-control" name="order" value={animal.order}
                     onChange={handleChange}/>
                     <br/>
-                    <label htmlFor="suborder">Suborder: </label><br/>
-                    <input type="text" class="form-control" name="suborder" value={animal.suborder}
+                    <label htmlFor="genus:">Genus: </label><br/>
+                    <input type="text" class="form-control" name="genus" value={animal.genus}
                     onChange={handleChange}/>
                     <br/>
                     <label htmlFor="habitat">Habitat: </label><br/>
@@ -57,7 +57,12 @@ const Edit = (props) => {
                     <br/>
                     <label htmlFor="level">Level: </label><br/>
                     <input type="number" class="form-control" name="level" value={animal.level}
-                    onChange={handleChange}/><br/>
+                    onChange={handleChange}/>
+                    <br/>
+                    <label htmlFor="description">Description: </label><br/>
+                    <input type="text" class="form-control" name="description" value={animal.description}
+                    onChange={handleChange}/>
+                    <br/>
                     <input type="submit" class="btn btn-dark" data-bs-dismiss="modal"/>
                 </form>
                 </div>
