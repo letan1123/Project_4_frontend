@@ -53,8 +53,6 @@ const NavBar = (props) => {
                     <li><a class="dropdown-item" href="https://github.com/Lanny-MacMillan" target='_blank' rel="noreferrer"><i class="bi bi-github"> Lanny</i></a></li>
                     <li><a class="dropdown-item" href="https://github.com/hollowred" target='_blank' rel="noreferrer"><i class="bi bi-github"> Salem</i></a></li>
                     <li><a class="dropdown-item" href="https://github.com/letan1123" target='_blank' rel="noreferrer"><i class="bi bi-github"> Tan</i></a></li>
-                    <li><hr class="dropdown-divider"/></li>
-                    <li><a class="dropdown-item" target='_blank' rel="noreferrer"> <i class="bi bi-envelope"> Contact Us</i></a></li>
                 </ul>
                 </li>
                 <li class="nav-item">
@@ -91,7 +89,8 @@ const NavBar = (props) => {
             </div>
             </nav>
         </nav>
-        {/* ======================= MODAL WINDOW FOR ADD SPECIES ======================= */}
+
+        {/* ======================= MODAL WINDOW - ADD SPECIES ======================= */}
         <div class="modal fade" id="modalAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
