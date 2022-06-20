@@ -19,12 +19,33 @@ body {
 
 }
 
-
 .top-container{
   display: flex;
   justify-content: space-between;
 }
 
+
+.infoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+  text-align: center;
+  margin: 15px;
+}
+.infoContainer1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  flex-direction: row;
+  text-align: center;
+  margin: 15px;
+  /* background-color: grey; */
+}
+p {
+  margin: 15px;
+  text-align: left;
+}
 
 .animal {
   display:flex;

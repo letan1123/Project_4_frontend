@@ -156,7 +156,6 @@ function App() {
       <div className='container'>
         {animalResults.slice(countStart,countEnd).map((animal) => {
           return(
-
             <div className='animal' key={animal.id}>
             <table className="main-table">
               <tr className="main-tr">
