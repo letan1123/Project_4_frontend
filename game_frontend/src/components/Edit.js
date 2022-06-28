@@ -39,11 +39,11 @@ const Edit = (props) => {
                     <input type="text" class="form-control" name="order" value={animal.order}
                     onChange={handleChange}/>
                     <br/>
-<<<<<<< HEAD
+
                     <label htmlFor="genus">Genus: </label><br/>
-=======
+
                     <label htmlFor="genus:">Genus: </label><br/>
->>>>>>> fbba0d76fb4cdd957ce7891a4e203446f31eed7f
+
                     <input type="text" class="form-control" name="genus" value={animal.genus}
                     onChange={handleChange}/>
                     <br/>

@@ -1,12 +1,10 @@
+
+
 import {useState} from 'react'
 
 const NavBar = (props) => {
 
-<<<<<<< HEAD
-    let emptyAnimal = {commonName: '',species: '',order: '',genus: '',habitat: '',diet: '', image: '',level: '',}
-=======
     let emptyAnimal = {commonName: '',species: '',order: '',genus: '',habitat: '',diet: '', image: '',level: '',description:''}
->>>>>>> fbba0d76fb4cdd957ce7891a4e203446f31eed7f
 
     const [animal, setAnimal] = useState(emptyAnimal)
 
@@ -18,11 +16,7 @@ const NavBar = (props) => {
         event.preventDefault()
         console.log(animal)
         props.handleCreate(animal)
-<<<<<<< HEAD
-        setAnimal({commonName: '',species: '',order: '',genus: '',habitat: '',diet: '', image: '',level: '',})
-=======
         setAnimal({commonName: '',species: '',order: '',genus: '',habitat: '',diet: '', image: '',level: '',description:''})
->>>>>>> fbba0d76fb4cdd957ce7891a4e203446f31eed7f
     }
 
     return(
@@ -121,11 +115,7 @@ const NavBar = (props) => {
                     <input type="text" class="form-control" name="order" value={animal.order}
                     onChange={handleChange}/>
                     <br/>
-<<<<<<< HEAD
-                    <label htmlFor="genus">genus: </label><br/>
-=======
                     <label htmlFor="genus:">Genus: </label><br/>
->>>>>>> fbba0d76fb4cdd957ce7891a4e203446f31eed7f
                     <input type="text" class="form-control" name="genus" value={animal.genus}
                     onChange={handleChange}/>
                     <br/>

@@ -20,10 +20,6 @@ function App() {
   const [countStart, setCountStart] = useState(0)
   const [countEnd, setCountEnd] = useState(2)
 
-
-   const APIBaseURL = 'https://rocky-hollows-96922.herokuapp.com/api/species'
-  //const APIBaseURL = 'http://localhost:8000/api/species'
-
   const [showSources, setShowSources] = useState(false)
   const [showConservation, setShowConservation] = useState(false)
 
@@ -32,7 +28,6 @@ function App() {
 
   const APIBaseURL = 'https://rocky-hollows-96922.herokuapp.com/api/species'
   // const APIBaseURL = 'http://localhost:8000/api/species'
->>>>>>> fbba0d76fb4cdd957ce7891a4e203446f31eed7f
 
 {/* ============================= SEARCH BAR ============================= */}
 
@@ -57,14 +52,20 @@ function App() {
   {/* ========================== HANDLES CHANGES =========================== */}
 
   const nextCount = () => {
-
-    setCountEnd(countEnd + 2)
-    setCountStart(countStart + 2)
-
+    axios.get(APIBaseURL).then((response) => {
+      setCountEnd(response.data.length)
+      if (countEnd >= response.data.length || countStart == response.data.length - 2) {
+        setCountEnd(response.data.length)
+        setCountStart(response.data.length - 2)
+      } else {
+      setCountEnd(countEnd + 2)
+      setCountStart(countStart + 2)
+      }
+    })
   }
 
   const prevCount = () => {
-    if (countStart <= 0 || countEnd < 0) {
+    if (countStart <= 1) {
       setCountStart(0)
       setCountEnd(2)
     } else {
@@ -155,16 +156,6 @@ function App() {
       <div className='container'>
         {animalResults.slice(countStart,countEnd).map((animal) => {
           return(
-<<<<<<< HEAD
-            <div class='animal' key={animal.id}>
-              <h3>Name: {animal.commonName}</h3>
-              <h5>Species: {animal.species}</h5>
-              <h5>Habitat: {animal.habitat}</h5>
-              <h5>Diet: {animal.diet}</h5>
-              <img src={animal.image} alt={animal.commonName}></img>
-              <h5>Level: {animal.level}</h5>
-              <a href='#' onClick={() => {showPage(animal)}} class="btn btn-link" role="button">Expand Species</a>
-=======
             <div className='animal' key={animal.id}>
             <table className="main-table">
               <tr className="main-tr">
@@ -192,9 +183,8 @@ function App() {
               {animal.level == 5 ? <img src="https://a-z-animals.com/media/cr.jpg"></img> : null }
               {animal.level == 6 ? <img src="https://a-z-animals.com/media/ew.jpg"></img> : null}
               {animal.level == 7 ? <img src="https://a-z-animals.com/media/ex.jpg"></img> : null}
-              {animal.level > 7 ? null : null}
+              {animal.level > 7 ? <h3>Not A Category</h3> : null}
               <a href='#' onClick={() => {showPage(animal)}} class="btn btn-link" role="button">Expand</a>
->>>>>>> fbba0d76fb4cdd957ce7891a4e203446f31eed7f
             </div>
           )
         })}
@@ -209,7 +199,7 @@ function App() {
           return(
         <div class="showContainer">
           <div class="showImg">
-            <img src={animal.image} alt={animal.commonName} id='showImg'></img>
+            <img className="single-page-image" src={animal.image} alt={animal.commonName} id='showImg'></img>
           </div>
           <div class="description">
             <h1 class='showHeader'>Species Description: </h1>
@@ -222,17 +212,6 @@ function App() {
         {/*============= GOOGLE MAPS API =============*/}
               <iframe
                 className="map"
-<<<<<<< HEAD
-                width='800'
-                height='550'
-                loading='lazy'
-                src={`${googleURL} + ${animal.habitat}`}>
-              </iframe>
-              {/*============= GOOGLE MAPS API =============*/}
-              <Edit handleUpdate={handleUpdate} animal={animal} key={animal.id}/>
-              <Delete handleDelete={handleDelete} animal={animal} key={animal.id}/>
-            </div>
-=======
                 width='100%'
                 height='100%'
                 loading='lazy'
@@ -244,7 +223,6 @@ function App() {
           <Delete handleDelete={handleDelete} animal={animal} key={animal.id}/>
           <a id='showBtn' type="button" class="btn btn-dark" href={`https://en.wikipedia.org/wiki/Special:Search/% + ${animal.commonName}`}  target='_blank' rel="noreferrer">Wikipedia {animal.commonName}</a>
         </div>
->>>>>>> fbba0d76fb4cdd957ce7891a4e203446f31eed7f
           )
         })}
       </div>
